@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Option = ({ name, id, choose }) => {
   const [color, setColor] = useState("none");
