@@ -34,3 +34,20 @@ button {
   flex-direction: column;
   align-items: center;
 }
+
+.row {
+  display: flex;
+}
+.row * {
+  padding: 1rem;
+  border: 3px solid white;
+  flex: 1;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+}
+.results h2 {
+  align-self: center;
+}

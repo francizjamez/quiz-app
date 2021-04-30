@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Confetti from "react-dom-confetti";
 import Option from "./Option";
+import Bar from "./Bar";
 
 const Question = ({
   question,
@@ -11,19 +12,29 @@ const Question = ({
   setScore,
   currentQuestion,
   setCurrentQuestion,
+  questionLength,
+  chosenAnswers,
+  setChosenAnswers,
+  progress,
+  setProgress,
+  timer,
 }) => {
   const [correct, setCorrect] = useState(false);
+  const [answered, setAnswered] = useState(false);
 
   const answer = async (index) => {
-    if (currentQuestion + 1 === 3) {
+    let newAnswers = [...chosenAnswers];
+    newAnswers.push(index);
+    setChosenAnswers(newAnswers);
+
+    if (currentQuestion + 1 === questionLength) {
       console.log("Quiz over");
     } else {
       setTimeout(() => {
-        setCurrentQuestion(Math.min(2, currentQuestion + 1));
+        setProgress(0);
+        setCurrentQuestion(Math.min(questionLength, currentQuestion + 1));
       }, 1000);
     }
-
-    setTimeout(() => setCorrect(false), 0);
 
     if (index === correctAnswer) {
       setCorrect(true);
@@ -33,6 +44,10 @@ const Question = ({
 
     return false;
   };
+
+  useEffect(() => {
+    clearInterval(timer);
+  }, [currentQuestion]);
 
   return (
     <div className="question">
@@ -45,10 +60,17 @@ const Question = ({
             id={i}
             name={choice}
             key={i + currentQuestion * 100}
+            answered={answered}
+            setAnswered={setAnswered}
+            currentQuestion={currentQuestion}
+            questionLength={questionLength}
+            chosenAnswers={chosenAnswers}
+            score={score}
           />
         ))}
       </div>
 
+      <Bar progress={progress} />
       <Confetti active={correct} />
     </div>
   );

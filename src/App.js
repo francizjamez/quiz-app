@@ -1,7 +1,16 @@
+import { useState, useEffect, useRef } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+
 import Question from "./Components/Question";
-import { useState } from "react";
+import Result from "./Components/Result";
 
 import "./Styles/styles.css";
+
 const questions = [
   {
     question: "Biggest Island in the world",
@@ -23,21 +32,58 @@ const questions = [
 function App() {
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const questionLength = questions.length;
+  const [chosenAnswers, setChosenAnswers] = useState([]);
+  const [progress, setProgress] = useState(0);
+  const timer = useRef(null);
 
   const { question, choices, correctAnswer } = questions[currentQuestion];
+
+  useEffect(() => {
+    timer.current = setInterval(() => {
+      setProgress((p) => p + 1);
+
+      return () => {
+        clearInterval(timer.current);
+      };
+    }, 100);
+  }, [currentQuestion]);
   return (
-    <div className="App">
-      <h2>Score: {score}</h2>
-      <Question
-        question={question}
-        choices={choices}
-        correctAnswer={correctAnswer}
-        setScore={setScore}
-        score={score}
-        currentQuestion={currentQuestion}
-        setCurrentQuestion={setCurrentQuestion}
-      />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <div className="App">
+            <h2>Score: {score}</h2>
+            <Question
+              question={question}
+              choices={choices}
+              correctAnswer={correctAnswer}
+              setScore={setScore}
+              score={score}
+              currentQuestion={currentQuestion}
+              setCurrentQuestion={setCurrentQuestion}
+              key={currentQuestion}
+              questionLength={questionLength}
+              chosenAnswers={chosenAnswers}
+              setChosenAnswers={setChosenAnswers}
+              progress={progress}
+              setProgress={setProgress}
+              timer={timer.current}
+            />
+          </div>
+        </Route>
+
+        <Route exact path="/results">
+          <Result questions={questions} />
+        </Route>
+
+        <Route exact path="/404">
+          <h1>Wrong URL</h1>
+        </Route>
+
+        <Redirect to="/404" />
+      </Switch>
+    </Router>
   );
 }
 
