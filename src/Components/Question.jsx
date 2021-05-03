@@ -68,20 +68,9 @@ const Question = ({
     return false;
   }
 
-  // const answerCallBack = useCallback(() => {
-  //   if (progress > 100) {
-  //     // answer(() => answerCallBack("none"));
-  //     // answer("none");
-  //     answer("none");
-  //     setAnswered(true);
-  //   }
-  // }, [progress]);
-
   useEffect(() => {
     if (progress > 100) {
-      // answer(() => answerCallBack("none"));
       answer("none");
-      // answerCallBack();
       setAnswered(true);
     }
     // eslint-disable-next-line

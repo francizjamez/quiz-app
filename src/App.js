@@ -41,7 +41,7 @@ function App() {
 
   useEffect(() => {
     timer.current = setInterval(() => {
-      setProgress((p) => p + 10);
+      setProgress((p) => p + 5);
 
       return () => {
         clearInterval(timer.current);
