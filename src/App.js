@@ -41,13 +41,14 @@ function App() {
 
   useEffect(() => {
     timer.current = setInterval(() => {
-      setProgress((p) => p + 1);
+      setProgress((p) => p + 10);
 
       return () => {
         clearInterval(timer.current);
       };
     }, 100);
   }, [currentQuestion]);
+
   return (
     <Router>
       <Switch>

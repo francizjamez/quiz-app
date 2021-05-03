@@ -4,6 +4,8 @@ import Confetti from "react-dom-confetti";
 import Option from "./Option";
 import Bar from "./Bar";
 
+import { useHistory } from "react-router-dom";
+
 const Question = ({
   question,
   choices,
@@ -22,13 +24,34 @@ const Question = ({
   const [correct, setCorrect] = useState(false);
   const [answered, setAnswered] = useState(false);
 
+  const history = useHistory();
+
   const answer = async (index) => {
+    clearInterval(timer);
+
     let newAnswers = [...chosenAnswers];
     newAnswers.push(index);
     setChosenAnswers(newAnswers);
 
+    let nextScore = score;
+    if (index === correctAnswer) {
+      nextScore++;
+    }
+
     if (currentQuestion + 1 === questionLength) {
       console.log("Quiz over");
+
+      setTimeout(
+        () =>
+          history.push({
+            pathname: "/results",
+            state: {
+              chosenAnswers: newAnswers,
+              score: nextScore,
+            },
+          }),
+        1500
+      );
     } else {
       setTimeout(() => {
         setProgress(0);
@@ -46,8 +69,11 @@ const Question = ({
   };
 
   useEffect(() => {
-    clearInterval(timer);
-  }, [currentQuestion]);
+    if (progress > 100) {
+      answer("none");
+      setAnswered(true);
+    }
+  }, [progress]);
 
   return (
     <div className="question">

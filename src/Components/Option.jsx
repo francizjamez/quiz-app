@@ -1,19 +1,7 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
 
-const Option = ({
-  name,
-  id,
-  choose,
-  answered,
-  setAnswered,
-  currentQuestion,
-  questionLength,
-  chosenAnswers,
-  score,
-}) => {
+const Option = ({ name, id, choose, answered, setAnswered }) => {
   const [color, setColor] = useState("none");
-  const history = useHistory();
 
   const style = {
     backgroundColor: color,
@@ -29,20 +17,6 @@ const Option = ({
       setColor("green");
     } else {
       setColor("red");
-    }
-
-    if (currentQuestion === questionLength - 1) {
-      setTimeout(
-        () =>
-          history.push({
-            pathname: "/results",
-            state: {
-              chosenAnswers: [...chosenAnswers, id],
-              score: score,
-            },
-          }),
-        1500
-      );
     }
   };
 
