@@ -26,7 +26,7 @@ const Question = ({
 
   const history = useHistory();
 
-  const answer = async (index) => {
+  function answer(index) {
     clearInterval(timer);
 
     let newAnswers = [...chosenAnswers];
@@ -66,13 +66,25 @@ const Question = ({
     }
 
     return false;
-  };
+  }
+
+  // const answerCallBack = useCallback(() => {
+  //   if (progress > 100) {
+  //     // answer(() => answerCallBack("none"));
+  //     // answer("none");
+  //     answer("none");
+  //     setAnswered(true);
+  //   }
+  // }, [progress]);
 
   useEffect(() => {
     if (progress > 100) {
+      // answer(() => answerCallBack("none"));
       answer("none");
+      // answerCallBack();
       setAnswered(true);
     }
+    // eslint-disable-next-line
   }, [progress]);
 
   return (
