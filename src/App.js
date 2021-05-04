@@ -24,8 +24,24 @@ const questions = [
   },
   {
     question: "Pick letter d",
-    choices: ["a", "b", "c", "d"],
+    choices: ["ol", "cl", "D", "d"],
     correctAnswer: 3,
+  },
+  {
+    question:
+      "Phobias and panic disorders are classified under what kind of disorder?",
+    choices: ["Delusional", " Anxiety", "Obsessive-cumpolsive", "Autism"],
+    correctAnswer: 1,
+  },
+  {
+    question: `In literature, what is meant by the term "unreliable narrator"?`,
+    choices: [
+      "The narrator is not not considered a human",
+      "The narrator has a vague past/background",
+      "The narrator's point of view is compromised in some way",
+      "The narrator is battling his nature",
+    ],
+    correctAnswer: 2,
   },
 ];
 
@@ -41,7 +57,7 @@ function App() {
 
   useEffect(() => {
     timer.current = setInterval(() => {
-      setProgress((p) => p + 5);
+      setProgress((p) => p + 2);
 
       return () => {
         clearInterval(timer.current);

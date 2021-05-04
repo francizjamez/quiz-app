@@ -51,3 +51,14 @@ button {
 .results h2 {
   align-self: center;
 }
+
+progress {
+  margin-top: 5rem;
+  height: 3rem;
+  width: 100%;
+  background: black;
+}
+
+progress::-moz-progress-bar {
+  background-color: #aaa !important;
+}

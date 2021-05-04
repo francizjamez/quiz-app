@@ -51,3 +51,14 @@ button {
     align-self: center;
   }
 }
+
+progress {
+  margin-top: 5rem;
+  height: 3rem;
+  width: 100%;
+  background: rgb(0, 0, 0);
+}
+
+progress::-moz-progress-bar {
+  background-color: #aaa !important;
+}

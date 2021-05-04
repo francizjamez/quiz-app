@@ -35,7 +35,7 @@ const Question = ({
 
     let nextScore = score;
     if (index === correctAnswer) {
-      nextScore++;
+      nextScore += 100 - progress;
     }
 
     if (currentQuestion + 1 === questionLength) {
@@ -61,7 +61,7 @@ const Question = ({
 
     if (index === correctAnswer) {
       setCorrect(true);
-      setScore(score + 1);
+      setScore(score + (100 - progress));
       return true;
     }
 
